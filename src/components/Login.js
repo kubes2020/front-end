@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import Axios from "axios";
+import React, { useEffect, useState } from "react";
 import * as yup from "yup";
 
 export default function Login() {
@@ -13,6 +14,12 @@ export default function Login() {
     name: "",
     password: "",
   });
+
+  //state for axios post
+  const [post, setPost] = useState([]);
+
+  //state for disabled submit button
+  const [disabled, setDisabled] = useState(true);
 
   const onChange = (e) => {
     e.persist();
@@ -46,10 +53,33 @@ export default function Login() {
       });
   };
 
+  useEffect(() => {
+    formSchema.isValid(login).then((valid) => {
+      setDisabled(!valid);
+    });
+  }, [login]);
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    Axios.post("https://reqres.in/api/users", login)
+      .then((res) => {
+        setPost(res.data);
+        console.log("success!");
+        //reset form
+        setLogin({
+          name: "",
+          password: "",
+        });
+      })
+      .catch((err) => {
+        console.log("there was an error", err);
+      });
+  };
+
   return (
     <>
       <h2>Let's Get Signed Up!</h2>
-      <form>
+      <form onSubmit={submitForm}>
         <label htmlFor="name">
           Name:
           <input
@@ -72,6 +102,7 @@ export default function Login() {
           ></input>
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </label>
+        <button disabled={disabled}>Submit</button>
       </form>
     </>
   );
