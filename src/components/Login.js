@@ -5,13 +5,13 @@ import * as yup from "yup";
 export default function Login() {
   //state for login
   const [login, setLogin] = useState({
-    name: "",
+    email: "",
     password: "",
   });
 
   //state for errors
   const [errors, setErrors] = useState({
-    name: "",
+    email: "",
     password: "",
   });
 
@@ -31,7 +31,7 @@ export default function Login() {
   };
 
   const formSchema = yup.object().shape({
-    name: yup.string().min(2).required("must have at least 2 characters"),
+    email: yup.string().email().required("must have a valid email"),
     password: yup.string().min(6).required("must have at least 6 characters"),
   });
 
@@ -67,7 +67,7 @@ export default function Login() {
         console.log("success!");
         //reset form
         setLogin({
-          name: "",
+          email: "",
           password: "",
         });
       })
@@ -78,18 +78,18 @@ export default function Login() {
 
   return (
     <>
-      <h2>Let's Get Signed Up!</h2>
+      <h2>Let's Get Logged In!</h2>
       <form onSubmit={submitForm}>
-        <label htmlFor="name">
-          Name:
+        <label htmlFor="email">
+          Email:
           <input
-            name="name"
-            id="name"
-            type="text"
-            value={login.name}
+            name="email"
+            id="email"
+            type="email"
+            value={login.email}
             onChange={onChange}
           ></input>
-          {errors.name.length > 0 ? <p>{errors.name}</p> : null}
+          {errors.email.length > 0 ? <p>{errors.email}</p> : null}
         </label>
         <label htmlFor="password">
           Password:
