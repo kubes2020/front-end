@@ -1,17 +1,20 @@
+import Axios from "axios";
 import React, { useEffect, useState } from "react";
-import { axiosWithAuth } from "../utils";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 
 export default function Register() {
   //state for login
-  const [register, setRegister] = useState({
+  const [login, setLogin] = useState({
     username: "",
+    email: "",
     password: "",
   });
 
   //state for errors
   const [errors, setErrors] = useState({
     username: "",
+    email: "",
     password: "",
   });
 
@@ -23,14 +26,15 @@ export default function Register() {
 
   const onChange = (e) => {
     e.persist();
-    setRegister({
-      ...register,
+    setLogin({
+      ...login,
       [e.target.name]: e.target.value,
     });
     validateChange(e);
   };
 
   const formSchema = yup.object().shape({
+    username: yup.string().min(4).required("must have at least 4 characters"),
     email: yup.string().email().required("must have a valid email"),
     password: yup.string().min(6).required("must have at least 6 characters"),
   });
@@ -53,23 +57,23 @@ export default function Register() {
       });
   };
 
-  //toggles the submit button if form is valid
+  //toggles submit button when form is valid
   useEffect(() => {
-    formSchema.isValid(register).then((valid) => {
+    formSchema.isValid(login).then((valid) => {
       setDisabled(!valid);
     });
-  }, [register]);
+  }, [login]);
 
   //submits valid form and resets it to blank
   const submitForm = (e) => {
     e.preventDefault();
-    axiosWithAuth()
-      .post("api/auth/register ", register)
+    Axios.post("https://reqres.in/api/users", login)
       .then((res) => {
         setPost(res.data);
         console.log("success!");
         //reset form
-        setRegister({
+        setLogin({
+          username: "",
           email: "",
           password: "",
         });
@@ -81,17 +85,27 @@ export default function Register() {
 
   return (
     <>
-      <h2>Let's Get You Signed Up</h2>
+      <h2>Let's Get You Signed Up!</h2>
       <form onSubmit={submitForm}>
         <label htmlFor='username'>
           Username:
           <input
             name='username'
             id='username'
-            type='username'
-            value={register.username}
+            type='text'
+            value={login.username}
             onChange={onChange}></input>
           {errors.username.length > 0 ? <p>{errors.username}</p> : null}
+        </label>
+        <label htmlFor='email'>
+          Email:
+          <input
+            name='email'
+            id='email'
+            type='email'
+            value={login.email}
+            onChange={onChange}></input>
+          {errors.email.length > 0 ? <p>{errors.email}</p> : null}
         </label>
         <label htmlFor='password'>
           Password:
@@ -99,11 +113,12 @@ export default function Register() {
             name='password'
             id='password'
             type='password'
-            value={register.password}
+            value={login.password}
             onChange={onChange}></input>
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </label>
         <button disabled={disabled}>Submit</button>
+        <Link to='/login'>Already Have An Account?</Link>
       </form>
     </>
   );
