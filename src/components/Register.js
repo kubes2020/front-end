@@ -1,16 +1,19 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
+import { Link } from "react-router-dom";
 
-export default function Login() {
+export default function Register() {
   //state for login
   const [login, setLogin] = useState({
+    username: "",
     email: "",
     password: "",
   });
 
   //state for errors
   const [errors, setErrors] = useState({
+    username: "",
     email: "",
     password: "",
   });
@@ -31,6 +34,7 @@ export default function Login() {
   };
 
   const formSchema = yup.object().shape({
+    username: yup.string().min(4).required("must have at least 4 characters"),
     email: yup.string().email().required("must have a valid email"),
     password: yup.string().min(6).required("must have at least 6 characters"),
   });
@@ -53,7 +57,7 @@ export default function Login() {
       });
   };
 
-  //toggles the submit button if form is valid
+  //toggles submit button when form is valid
   useEffect(() => {
     formSchema.isValid(login).then((valid) => {
       setDisabled(!valid);
@@ -69,6 +73,7 @@ export default function Login() {
         console.log("success!");
         //reset form
         setLogin({
+          username: "",
           email: "",
           password: "",
         });
@@ -80,8 +85,19 @@ export default function Login() {
 
   return (
     <>
-      <h2>Welcome Back!</h2>
+      <h2>Let's Get You Signed Up!</h2>
       <form onSubmit={submitForm}>
+        <label htmlFor="username">
+          Username:
+          <input
+            name="username"
+            id="username"
+            type="text"
+            value={login.username}
+            onChange={onChange}
+          ></input>
+          {errors.username.length > 0 ? <p>{errors.username}</p> : null}
+        </label>
         <label htmlFor="email">
           Email:
           <input
@@ -105,6 +121,7 @@ export default function Login() {
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </label>
         <button disabled={disabled}>Submit</button>
+        <Link to="/login">Already Have An Account?</Link>
       </form>
     </>
   );

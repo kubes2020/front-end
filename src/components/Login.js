@@ -1,18 +1,17 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
 
 export default function Login() {
   //state for login
   const [login, setLogin] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
   //state for errors
   const [errors, setErrors] = useState({
-    email: "",
+    username: "",
     password: "",
   });
 
@@ -32,7 +31,7 @@ export default function Login() {
   };
 
   const formSchema = yup.object().shape({
-    email: yup.string().email().required("must have a valid email"),
+    username: yup.string().min(4).required("must have at least 4 characters"),
     password: yup.string().min(6).required("must have at least 6 characters"),
   });
 
@@ -54,7 +53,7 @@ export default function Login() {
       });
   };
 
-  //toggles submit button when form is valid
+  //toggles the submit button if form is valid
   useEffect(() => {
     formSchema.isValid(login).then((valid) => {
       setDisabled(!valid);
@@ -70,7 +69,7 @@ export default function Login() {
         console.log("success!");
         //reset form
         setLogin({
-          email: "",
+          username: "",
           password: "",
         });
       })
@@ -81,18 +80,18 @@ export default function Login() {
 
   return (
     <>
-      <h2>Let's Get You Signed Up!</h2>
+      <h2>Welcome Back!</h2>
       <form onSubmit={submitForm}>
-        <label htmlFor="email">
-          Email:
+        <label htmlFor="username">
+          Username:
           <input
-            name="email"
-            id="email"
-            type="email"
-            value={login.email}
+            name="username"
+            id="username"
+            type="text"
+            value={login.username}
             onChange={onChange}
           ></input>
-          {errors.email.length > 0 ? <p>{errors.email}</p> : null}
+          {errors.username.length > 0 ? <p>{errors.username}</p> : null}
         </label>
         <label htmlFor="password">
           Password:
@@ -106,7 +105,6 @@ export default function Login() {
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </label>
         <button disabled={disabled}>Submit</button>
-        <Link to="/existing">Already Have An Account?</Link>
       </form>
     </>
   );
