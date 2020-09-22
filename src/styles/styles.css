@@ -14,7 +14,89 @@ a {
   text-decoration: none;
 }
 
+/* my additions */
 h1 {
   color: blue;
+}
+
+body {
+  width: 90%;
+  margin: auto;
+}
+
+nav {
+  border: 3px solid #509bf5;
+  padding: 1% 0;
+  background: black;
+}
+
+nav a {
+  padding: 0 2%;
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-family: "Montserrat", sans-serif;
+}
+
+header {
+  text-align: center;
+  padding: 7% 0 7% 0;
+  font-size: 1.6rem;
+  font-family: "Rubik", sans-serif;
+}
+
+form {
+  font-size: 1.2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+form label {
+  padding: 2% 2% 8% 2%;
+  font-family: "Montserrat", sans-serif;
+}
+
+form label input {
+  font-size: 1.6rem;
+}
+
+.form-container {
+  text-align: center;
+}
+
+.have-account-container {
+  padding-top: 3%;
+}
+
+#have-account {
+  width: 500px;
+  padding: 1%;
+  font-size: 1.1rem;
+  font-family: "Montserrat", sans-serif;
+  background: #1e3264;
+  color: #ffffff;
+}
+
+button {
+  background: #4de68b;
+  border: 2px solid #c1c3c6;
+  color: black;
+  width: 100px;
+  height: 23px;
+  font-size: 1.6rem;
+}
+
+@media (max-width: 550px) {
+  form {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
 }
 /*# sourceMappingURL=styles.css.map */
