@@ -1,7 +1,6 @@
 import Axios from "axios";
 import React, { useEffect, useState } from "react";
 import * as yup from "yup";
-import { Link } from "react-router-dom";
 
 export default function Login() {
   //state for login
@@ -54,7 +53,7 @@ export default function Login() {
       });
   };
 
-  //toggles submit button when form is valid
+  //toggles the submit button if form is valid
   useEffect(() => {
     formSchema.isValid(login).then((valid) => {
       setDisabled(!valid);
@@ -81,7 +80,7 @@ export default function Login() {
 
   return (
     <>
-      <h2>Let's Get You Signed Up!</h2>
+      <h2>Welcome Back!</h2>
       <form onSubmit={submitForm}>
         <label htmlFor="email">
           Email:
@@ -106,7 +105,6 @@ export default function Login() {
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </label>
         <button disabled={disabled}>Submit</button>
-        <Link to="/existing">Already Have An Account?</Link>
       </form>
     </>
   );
