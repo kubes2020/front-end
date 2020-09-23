@@ -89,45 +89,44 @@ export default function Register() {
         <h2>Let's Get You Signed Up!</h2>
       </header>
       <form onSubmit={submitForm}>
-        <label htmlFor="username">
+        <label htmlFor='username'>
           Username:
           <input
-            name="username"
-            id="username"
-            type="text"
+            name='username'
+            id='username'
+            type='text'
             value={login.username}
-            onChange={onChange}
-          ></input>
+            onChange={onChange}></input>
           {errors.username.length > 0 ? <p>{errors.username}</p> : null}
         </label>
-        <label htmlFor="email">
+        <label htmlFor='email'>
           Email:
           <input
-            name="email"
-            id="email"
-            type="email"
+            name='email'
+            id='email'
+            type='email'
             value={login.email}
-            onChange={onChange}
-          ></input>
+            onChange={onChange}></input>
           {errors.email.length > 0 ? <p>{errors.email}</p> : null}
         </label>
-        <label htmlFor="password">
+        <label htmlFor='password'>
           Password:
           <input
-            name="password"
-            id="password"
-            type="password"
+            name='password'
+            id='password'
+            type='password'
             value={login.password}
-            onChange={onChange}
-          ></input>
+            onChange={onChange}></input>
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </label>
+
         <label htmlFor="submit">
           Submit:
           <button id="submit" disabled={disabled}>
             Submit
           </button>
         </label>
+
       </form>
       <div className="have-account-container">
         <Link id="have-account" to="/login">
