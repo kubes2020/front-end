@@ -47,16 +47,13 @@ header {
 }
 
 form {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   label {
     padding: 2% 2% 8% 2%;
     font-family: $textFont;
-    input {
-      font-size: 1.6rem;
-    }
   }
 }
 
@@ -86,11 +83,13 @@ button {
   color: black;
   width: 100px;
   height: 23px;
-  font-size: 1.6rem;
 }
 
 @media (max-width: 550px) {
   form {
-    flex-direction: column;
+    label {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
   }
 }
