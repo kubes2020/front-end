@@ -15,10 +15,7 @@ a {
 }
 
 /* my additions */
-h1 {
-  color: blue;
-}
-
+/* variables for reusable fonts/colors */
 body {
   width: 90%;
   margin: auto;
@@ -70,7 +67,6 @@ form label {
 }
 
 #have-account {
-  width: 500px;
   padding: 1%;
   font-size: 1.1rem;
   font-family: "Montserrat", sans-serif;
