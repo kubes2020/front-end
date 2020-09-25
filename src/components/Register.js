@@ -122,6 +122,7 @@ export default function Register() {
           ></input>
           {errors.password.length > 0 ? <p>{errors.password}</p> : null}
         </label>
+
         <label htmlFor="submit">
           Submit:
           <button id="submit" disabled={disabled}>
